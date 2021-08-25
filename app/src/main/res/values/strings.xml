@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TAGEBUCH</string>
+    <string name="title_thought">Titulo:</string>
+    <string name="description_thought">Descripción:</string>
+</resources>

@@ -1,30 +1,37 @@
 package com.tagebuch.model.buissnesModels;
 
+import android.text.format.DateFormat;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity(tableName = "thoughts")
-public class Thought {
+public class Thought implements Comparable<Thought> {
     @PrimaryKey
     @NonNull
-    private String _idThought;
+    private String _id;
     @NonNull
     private String title;
     @NonNull
     private  String description;
     @NonNull
-    @ColumnInfo(defaultValue = "CURRENT_TIMESTAMP")
     private String createdTime;
+    @NonNull
+    private int categoryId;
 
     public Thought(){
-        this._idThought = UUID.randomUUID().toString();
+        this._id = UUID.randomUUID().toString();
         this.title = "";
         this.description = "";
-        this.createdTime = "";
+        this.createdTime = (DateFormat.format("MMMM d, yyyy ", (new Date()).getTime())).toString();;
+        this.categoryId = 0;
     }
 
     @NonNull
@@ -52,5 +59,39 @@ public class Thought {
 
     public void setCreatedTime(@NonNull String createdTime) {
         this.createdTime = createdTime;
+    }
+
+    @NonNull
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(@NonNull String _id) {
+        this._id = _id;
+    }
+
+    @NonNull
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(@NonNull int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    @Ignore
+    @Override
+    public int compareTo(Thought f) {
+
+        if (categoryId > f.categoryId) {
+            return 1;
+        }
+        else if (categoryId <  f.categoryId) {
+            return -1;
+        }
+        else {
+            return 0;
+        }
+
     }
 }

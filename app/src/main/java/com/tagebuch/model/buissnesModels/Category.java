@@ -1,56 +1,49 @@
 package com.tagebuch.model.buissnesModels;
 
-import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import android.graphics.Color;
 
-import java.util.UUID;
-
-@Entity(tableName = "categories")
 public class Category {
-    @PrimaryKey
-    @NonNull
-    private String _idCategory;
-    @NonNull
+    private int categoryId;
     private String name;
-    @NonNull
     private  String description;
-    @NonNull
-    private String color;
+    private int colorId;
 
-    @Ignore
-    public Category(){
-        this._idCategory = UUID.randomUUID().toString();
-        this.name = "";
-        this.description = "";
-        this.color = "";
+    public Category(int categoryId, String name, String description, int colorId) {
+        this.categoryId = categoryId;
+        this.name = name;
+        this.description = description;
+        this.colorId = colorId;
     }
 
-    @NonNull
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getName() {
         return name;
     }
 
-    public void setName(@NonNull String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    @NonNull
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(@NonNull String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    @NonNull
-    public String getColor() {
-        return color;
+    public int getColor() {
+        return colorId;
     }
 
-    public void setColor(@NonNull String color) {
-        this.color = color;
+    public void setColor(int colorId) {
+        this.colorId = colorId;
     }
 }

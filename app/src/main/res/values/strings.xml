@@ -2,4 +2,19 @@
     <string name="app_name">TAGEBUCH</string>
     <string name="title_thought">Titulo:</string>
     <string name="description_thought">Descripción:</string>
+    <string name="date_thought">Fecha:</string>
+    <string name="category_thought">Categoria:</string>
+    <string name="interfaz_name">Pensamientos</string>
+    <string name="register_button">Registrar Pensamiento</string>
+    <string name="edit_button">Editar Pensamiento</string>
+    <string name="delete_button">Eliminar Pensamiento</string>
+    <string name="confirm_button">Guardar Pensamiento</string>
+    <string name="previous_button"><![CDATA[<]]></string>
+    <string name="next_button"><![CDATA[>]]></string>
+    <string name="category_name_1">Romantico</string>
+    <string name="description_name_1">Estos pensamientos son aquellos con relación a la pareja o al amor</string>
+    <string name="category_name_2">Creativo</string>
+    <string name="description_name_2">Estos pensamientos son aquellos con relación a una idea genial</string>
+    <string name="category_name_3">Logico</string>
+    <string name="description_name_3">Estos pensamientos son aquellos con relación a la razon y la logica</string>
 </resources>

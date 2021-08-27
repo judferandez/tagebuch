@@ -50,10 +50,6 @@ public class ThoughtsView extends AppCompatActivity {
 
     }
 
-    private ThoughtsView getMainActivity(){
-        return this;
-    }
-
     private void printListOfThoughts(){
         for (Thought element : thoughtController.list()) {
             getSupportFragmentManager().beginTransaction().add(

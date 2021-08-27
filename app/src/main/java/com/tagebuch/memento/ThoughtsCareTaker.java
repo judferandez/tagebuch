@@ -1,22 +1,15 @@
 package com.tagebuch.memento;
 
-import android.util.Log;
-import android.widget.Toast;
 
 import com.tagebuch.model.buissnesModels.Thought;
-import com.tagebuch.view.ThoughtsView;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 public class ThoughtsCareTaker {
-    private Stack<ThoughtsMemento> undoStack = new Stack<>();
-    private Stack<ThoughtsMemento> redoStack = new Stack<>();
-
-    public ThoughtsCareTaker(List<Thought> thoughtList){
-        createMemento(thoughtList);
-    }
+    private final Stack<ThoughtsMemento> undoStack = new Stack<>();
+    private final Stack<ThoughtsMemento> redoStack = new Stack<>();
 
     public void createMemento(List<Thought> thoughtList){
         ThoughtsMemento memento = new ThoughtsMemento();

@@ -1,12 +1,10 @@
 package com.tagebuch.controller;
 
 import android.graphics.Color;
-import android.view.Gravity;
-import android.widget.Toast;
 
 import com.tagebuch.memento.ThoughtsCareTaker;
-import com.tagebuch.memento.ThoughtsMemento;
 import com.tagebuch.model.DAO.ThoughtDAO;
+import com.tagebuch.model.LocalStorage;
 import com.tagebuch.model.buissnesModels.Category;
 import com.tagebuch.model.buissnesModels.Thought;
 import com.tagebuch.view.ThoughtsView;
@@ -16,17 +14,23 @@ import java.util.Collections;
 import java.util.List;
 
 public class ThoughtController {
-    private ThoughtDAO thoughtDAO;
+    private final ThoughtDAO thoughtDAO;
     private List<Thought> thoughtsList = new ArrayList<>();
-    private List<Category> categoryList = new ArrayList<>();
-    private ThoughtsCareTaker careTaker;
-    private ThoughtsView thoughtView;
+    private final List<Category> categoryList = new ArrayList<>();
+    private final ThoughtsCareTaker careTaker;
+    private final ThoughtsView thoughtView;
 
     public ThoughtController(ThoughtsView thoughtsView){
-        // Cargar thoughtsList de DB
-        setCategoryList();
         thoughtView = thoughtsView;
-        careTaker = new ThoughtsCareTaker(thoughtsList);
+        this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
+        setCategoryList();
+        careTaker = new ThoughtsCareTaker();
+        setThoughtList();
+    }
+
+    public void setThoughtList(){
+        thoughtsList = this.thoughtDAO.loadAllThoughts();
+        careTaker.createMemento(thoughtsList);
     }
 
     public void register(String title, String description, int categoryId ){
@@ -38,8 +42,14 @@ public class ThoughtController {
             thoughtsList.add(newThought);
             thoughtView.refreshThoughts();
             careTaker.createMemento(thoughtsList);
-            // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
-            // this.thoughtDAO.insertThought(newThought);
+            saveThoughtListInDatabase();
+        }
+    }
+
+    public void saveThoughtListInDatabase(){
+        this.thoughtDAO.nukeTable();
+        for(Thought element: thoughtsList){
+            this.thoughtDAO.insertThoughts(element);
         }
     }
 
@@ -68,11 +78,10 @@ public class ThoughtController {
         }
         thoughtsList = newThoughtList;
         thoughtView.refreshThoughts();
+        saveThoughtListInDatabase();
     }
 
     public List<Thought> list(){
-            // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
-            // thoughtsList = this.thoughtDAO.getAllThoughts();
             Collections.sort(thoughtsList);
             return thoughtsList;
     }
@@ -86,8 +95,7 @@ public class ThoughtController {
             thoughtsList.set(index, thought);
             thoughtView.refreshThoughts();
             careTaker.createMemento(thoughtsList);
-            // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
-            // this.thoughtDAO.updateThought(thought);
+            saveThoughtListInDatabase();
         }
     }
 
@@ -122,8 +130,7 @@ public class ThoughtController {
         thoughtsList.remove(index);
         thoughtView.refreshThoughts();
         careTaker.createMemento(thoughtsList);
-        // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
-        // this.thoughtDAO.deleteThought(thought);
+        saveThoughtListInDatabase();
     }
 
     public void setCategoryList(){

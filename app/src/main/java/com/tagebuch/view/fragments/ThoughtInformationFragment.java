@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.tagebuch.R;
 import com.tagebuch.controller.ThoughtController;
-import com.tagebuch.view.ThoughtsView;
 
 public class ThoughtInformationFragment extends Fragment {
 

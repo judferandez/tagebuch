@@ -8,7 +8,6 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -16,14 +15,19 @@ import java.util.UUID;
 public class Thought implements Comparable<Thought> {
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name="id")
     private String _id;
     @NonNull
+    @ColumnInfo(name="title")
     private String title;
     @NonNull
+    @ColumnInfo(name="description")
     private  String description;
     @NonNull
+    @ColumnInfo(name="create_date")
     private String createdTime;
     @NonNull
+    @ColumnInfo(name="category_id")
     private int categoryId;
 
     public Thought(){

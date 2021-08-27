@@ -1,7 +1,5 @@
 package com.tagebuch.model.buissnesModels;
 
-import android.graphics.Color;
-
 public class Category {
     private int categoryId;
     private String name;

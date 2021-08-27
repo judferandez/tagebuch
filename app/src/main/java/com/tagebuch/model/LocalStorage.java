@@ -12,7 +12,6 @@ import com.tagebuch.model.DAO.ThoughtDAO;
 @Database(entities = {Thought.class}, version = 1)
 public abstract class LocalStorage extends RoomDatabase {
     public  abstract ThoughtDAO thoughtDAO();
-
     private static LocalStorage localStorage;
 
     public static LocalStorage getLocalStorage(final Context context){

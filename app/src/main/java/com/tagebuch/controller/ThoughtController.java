@@ -26,7 +26,7 @@ public class ThoughtController {
         // Cargar thoughtsList de DB
         setCategoryList();
         thoughtView = thoughtsView;
-        careTaker = new ThoughtsCareTaker(thoughtsList, thoughtView);
+        careTaker = new ThoughtsCareTaker(thoughtsList);
     }
 
     public void register(String title, String description, int categoryId ){
@@ -45,16 +45,29 @@ public class ThoughtController {
 
     public void undoAction(){
         if(careTaker.canUndo()){
-            thoughtsList = careTaker.getUndo().getThoughtsState();
-            thoughtView.refreshThoughts();
+            generateNewList(careTaker.getUndo().getThoughtsState());
         }
     }
 
     public void redoAction(){
         if(careTaker.canRedo()){
-            thoughtsList = careTaker.getRedo().getThoughtsState();
-            thoughtView.refreshThoughts();
+            generateNewList(careTaker.getRedo().getThoughtsState());
         }
+    }
+
+    public void generateNewList(List<Thought> mementoThoughtsList){
+        List<Thought> newThoughtList = new ArrayList<>();
+        for(Thought element: mementoThoughtsList){
+            Thought newThought = new Thought();
+            newThought.set_id(element.get_id());
+            newThought.setTitle(element.getTitle());
+            newThought.setDescription(element.getDescription());
+            newThought.setCreatedTime(element.getCreatedTime());
+            newThought.setCategoryId(element.getCategoryId());
+            newThoughtList.add(newThought);
+        }
+        thoughtsList = newThoughtList;
+        thoughtView.refreshThoughts();
     }
 
     public List<Thought> list(){

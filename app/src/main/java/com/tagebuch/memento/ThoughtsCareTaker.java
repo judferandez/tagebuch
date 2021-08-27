@@ -13,10 +13,8 @@ import java.util.Stack;
 public class ThoughtsCareTaker {
     private Stack<ThoughtsMemento> undoStack = new Stack<>();
     private Stack<ThoughtsMemento> redoStack = new Stack<>();
-    private ThoughtsView thoughtsView;
 
-    public ThoughtsCareTaker(List<Thought> thoughtList, ThoughtsView thoughtView){
-        thoughtsView = thoughtView;
+    public ThoughtsCareTaker(List<Thought> thoughtList){
         createMemento(thoughtList);
     }
 
@@ -50,23 +48,6 @@ public class ThoughtsCareTaker {
         if(thoughtsMemento != null){
             undoStack.push(thoughtsMemento);
             redoStack.clear();
-            String aux = "|UndoStack| \n";
-            int index = 1;
-            for (ThoughtsMemento mement: undoStack){
-                aux = aux + "|Memento " + index + "| \n";
-                aux = aux + "|List| \n";
-                int index2 = 1;
-                for(Thought element: mement.getThoughtsState()){
-                    if(index2 == mement.getThoughtsState().size()) {
-                        aux = aux + element.getTitle() + " \n";
-                    } else {
-                        aux = aux + element.getTitle() + " --- ";
-                    }
-                    index2++;
-                }
-                index++;
-            }
-            Toast.makeText(thoughtsView, aux, Toast.LENGTH_LONG).show();
         }
     }
 

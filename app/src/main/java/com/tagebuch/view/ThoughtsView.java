@@ -30,8 +30,7 @@ public class ThoughtsView extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        thoughtController = new ThoughtController();
-        thoughtController.setCategoryList();
+        thoughtController = new ThoughtController(this);
         createButton = findViewById(R.id.register_button);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,11 +40,11 @@ public class ThoughtsView extends AppCompatActivity {
         redoButton = findViewById(R.id.redo_button);
         undoButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { thoughtController.undoAction(getMainActivity()); }
+            public void onClick(View view) { thoughtController.undoAction(); }
         });
         redoButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { thoughtController.redoAction(getMainActivity()); }
+            public void onClick(View view) { thoughtController.redoAction(); }
         });
         printListOfThoughts();
 
@@ -56,11 +55,10 @@ public class ThoughtsView extends AppCompatActivity {
     }
 
     private void printListOfThoughts(){
-        for (Thought element : thoughtController.list(this)) {
+        for (Thought element : thoughtController.list()) {
             getSupportFragmentManager().beginTransaction().add(
                     R.id.linear_layout,
                     ThoughtInformationFragment.newInstance(
-                            this,
                             thoughtController,
                             element.get_id(),
                             element.getTitle(),
@@ -104,7 +102,6 @@ public class ThoughtsView extends AppCompatActivity {
 
     public  void registerThought(Dialog dialog){
         thoughtController.register(
-                this,
                 newTitleTextView.getText().toString(),
                 newDescriptionTextView.getText().toString(),
                 categoryId);

@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/joker/AndroidStudioProjects/tagebuch/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/joker/AndroidStudioProjects/tagebuch/app/src/main/res/drawable/ic_redo_icon.xml" value="0.1328125" />
+        <entry key="..\:/Users/joker/AndroidStudioProjects/tagebuch/app/src/main/res/drawable/ic_undo_icon.xml" value="0.1328125" />
+        <entry key="..\:/Users/joker/AndroidStudioProjects/tagebuch/app/src/main/res/layout/activity_main.xml" value="0.36245954692556637" />
         <entry key="..\:/Users/joker/AndroidStudioProjects/tagebuch/app/src/main/res/layout/create_form.xml" value="0.13333333333333333" />
         <entry key="..\:/Users/joker/AndroidStudioProjects/tagebuch/app/src/main/res/layout/dialog_create_form.xml" value="0.3255208333333333" />
         <entry key="..\:/Users/joker/AndroidStudioProjects/tagebuch/app/src/main/res/layout/dialog_edit_form.xml" value="0.2916666666666667" />

@@ -19,58 +19,60 @@ public class ThoughtController {
     private ThoughtDAO thoughtDAO;
     private List<Thought> thoughtsList = new ArrayList<>();
     private List<Category> categoryList = new ArrayList<>();
-    private ThoughtsCareTaker careTaker = new ThoughtsCareTaker();
+    private ThoughtsCareTaker careTaker;
+    private ThoughtsView thoughtView;
 
-    public void register(ThoughtsView thoughtsView, String title, String description, int categoryId ){
-        if(isValidThought(thoughtsView, title, description)) {
+    public ThoughtController(ThoughtsView thoughtsView){
+        // Cargar thoughtsList de DB
+        setCategoryList();
+        thoughtView = thoughtsView;
+        careTaker = new ThoughtsCareTaker(thoughtsList, thoughtView);
+    }
+
+    public void register(String title, String description, int categoryId ){
+        if(isValidThought(title, description)) {
             Thought newThought = new Thought();
             newThought.setTitle(title);
             newThought.setDescription(description);
             newThought.setCategoryId(categoryId);
             thoughtsList.add(newThought);
-            thoughtsView.refreshThoughts();
-            createMemento();
+            thoughtView.refreshThoughts();
+            careTaker.createMemento(thoughtsList);
             // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
             // this.thoughtDAO.insertThought(newThought);
         }
     }
 
-    private void createMemento(){
-        ThoughtsMemento memento = new ThoughtsMemento();
-        memento.setThoughtsState(thoughtsList);
-        careTaker.addThoughtsMementoToStack(memento);
-    }
-
-    public void undoAction(ThoughtsView thoughtsView){
+    public void undoAction(){
         if(careTaker.canUndo()){
             thoughtsList = careTaker.getUndo().getThoughtsState();
-            thoughtsView.refreshThoughts();
+            thoughtView.refreshThoughts();
         }
     }
 
-    public void redoAction(ThoughtsView thoughtsView){
+    public void redoAction(){
         if(careTaker.canRedo()){
             thoughtsList = careTaker.getRedo().getThoughtsState();
-            thoughtsView.refreshThoughts();
+            thoughtView.refreshThoughts();
         }
     }
 
-    public List<Thought> list(ThoughtsView thoughtsView){
+    public List<Thought> list(){
             // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
             // thoughtsList = this.thoughtDAO.getAllThoughts();
             Collections.sort(thoughtsList);
             return thoughtsList;
     }
 
-    public void edit(ThoughtsView thoughtsView, String thoughtId, String title, String description){
-        if(isValidThought(thoughtsView, title, description)) {
+    public void edit(String thoughtId, String title, String description){
+        if(isValidThought(title, description)) {
             Thought thought = getThoughtById(thoughtId);
             int index = thoughtsList.indexOf(thought);
             thought.setTitle(title);
             thought.setDescription(description);
             thoughtsList.set(index, thought);
-            thoughtsView.refreshThoughts();
-            createMemento();
+            thoughtView.refreshThoughts();
+            careTaker.createMemento(thoughtsList);
             // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
             // this.thoughtDAO.updateThought(thought);
         }
@@ -85,28 +87,28 @@ public class ThoughtController {
         return null;
     }
 
-    public boolean isValidThought(ThoughtsView thoughtsView, String title, String description){
+    public boolean isValidThought(String title, String description){
         if(title == null || title.compareTo("") == 0){
-            thoughtsView.fieldValidateMandatory();
+            thoughtView.fieldValidateMandatory();
             return false;
         }
         if(description == null || description.compareTo("") == 0){
-            thoughtsView.fieldValidateMandatory();
+            thoughtView.fieldValidateMandatory();
             return false;
         }
         if(title.length()>100){
-            thoughtsView.validateTitleLength();
+            thoughtView.validateTitleLength();
             return false;
         }
         return true;
     }
 
-    public void delete(ThoughtsView thoughtsView, String thoughtId){
+    public void delete(String thoughtId){
         Thought thought = getThoughtById(thoughtId);
         int index = thoughtsList.indexOf(thought);
         thoughtsList.remove(index);
-        thoughtsView.refreshThoughts();
-        createMemento();
+        thoughtView.refreshThoughts();
+        careTaker.createMemento(thoughtsList);
         // this.thoughtDAO = LocalStorage.getLocalStorage(thoughtsView.getApplicationContext()).thoughtDAO();
         // this.thoughtDAO.deleteThought(thought);
     }

@@ -14,8 +14,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_undo_icon" />
-                            <entry key="sourceFile" value="C:\Users\joker\AndroidStudioProjects\tagebuch\app\src\main\res\drawable-v24\undo-icon.svg" />
+                            <entry key="outputName" value="ic_redo_arrow" />
+                            <entry key="sourceFile" value="C:\Users\joker\AndroidStudioProjects\tagebuch\app\src\main\res\drawable\redo-arrow.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -23,16 +23,13 @@ public class ThoughtInformationFragment extends Fragment {
     private TextView titleTextView, descriptionTextView, dateTextView, newTitleTextView, newDescriptionTextView;
     private Button removeButton, editButton, saveButton;
     private ConstraintLayout thoughtLayout;
-    private ThoughtsView thoughtsView;
     private ThoughtController thoughtController;
 
     public static ThoughtInformationFragment newInstance(
-            ThoughtsView thoughtsView,
             ThoughtController thoughtController,
             String thoughtId, String title, String description,
             String date, int colorId) {
         ThoughtInformationFragment fragment = new ThoughtInformationFragment();
-        fragment.setMainActivity(thoughtsView);
         fragment.setMainActivityController(thoughtController);
         fragment.setThoughtId(thoughtId);
         fragment.setTitle(title);
@@ -81,7 +78,7 @@ public class ThoughtInformationFragment extends Fragment {
     }
 
     private void removeThough(View view){
-        thoughtController.delete(thoughtsView, thoughtId);
+        thoughtController.delete(thoughtId);
     }
 
     private void editThought(View view){
@@ -96,7 +93,7 @@ public class ThoughtInformationFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                thoughtController.edit(thoughtsView, thoughtId, newTitleTextView.getText().toString(), newDescriptionTextView.getText().toString());
+                thoughtController.edit(thoughtId, newTitleTextView.getText().toString(), newDescriptionTextView.getText().toString());
                 dialog.dismiss();
             }
         });
@@ -148,11 +145,5 @@ public class ThoughtInformationFragment extends Fragment {
 
     public void setMainActivityController(ThoughtController thoughtController) {
         this.thoughtController = thoughtController;
-    }
-
-    public ThoughtsView getMainActivity() { return thoughtsView; }
-
-    public void setMainActivity(ThoughtsView thoughtsView) {
-        this.thoughtsView = thoughtsView;
     }
 }

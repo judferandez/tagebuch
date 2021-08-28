@@ -66,7 +66,7 @@ public class ThoughtsView extends AppCompatActivity {
         }
     }
 
-    private void createThought(View view){
+    private void createThought(){
         AlertDialog.Builder alertForm = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View formView = inflater.inflate(R.layout.dialog_create_form, null);

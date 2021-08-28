@@ -157,7 +157,7 @@ public class ThoughtsView extends AppCompatActivity {
 
     public void validateTitleLength(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("El titulo debe tener menos de 100 caracteres")
+        builder.setMessage("El título debe tener a lo más 100 caracteres")
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

@@ -34,7 +34,7 @@ public class ThoughtsView extends AppCompatActivity {
         createButton = findViewById(R.id.register_button);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { createThought(view); }
+            public void onClick(View view) { createThought(); }
         });
         undoButton = findViewById(R.id.undo_button);
         redoButton = findViewById(R.id.redo_button);
